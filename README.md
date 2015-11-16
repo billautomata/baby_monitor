@@ -1,4 +1,4 @@
-# default project
+# baby monitor
 
 `npm install`
 
@@ -9,3 +9,11 @@
 or
 
 `npm run http`
+
+
+
+# how does it work?
+
+* browser application
+  * tracks motion from IP camera source
+  * tracks audio levels 

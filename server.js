@@ -22,7 +22,7 @@ var server
 // console.log(process.env)
 
 if(process.env.HTTPS && process.env.HTTPS === '1'){
-  server = http.createServer(app, options).listen(port, function(){
+  server = https.createServer(options, app).listen(port, function(){
     console.log("Express _SECURE_ server listening on port " + port);
   });
 } else {

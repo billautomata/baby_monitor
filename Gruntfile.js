@@ -39,8 +39,8 @@ module.exports = function (grunt) {
         options: {
           livereload: {
             port: 35729,
-            // key: grunt.file.read('nginx.key'),
-            // cert: grunt.file.read('nginx.crt')
+            key: grunt.file.read('nginx.key'),
+            cert: grunt.file.read('nginx.crt')
             // you can pass in any other options you'd like to the https server, as listed here: http://nodejs™.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener
           }
         },
