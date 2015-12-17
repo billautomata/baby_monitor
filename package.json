@@ -18,7 +18,9 @@
     "grunt": "^0.4.5",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-run": "^0.3.0",
-    "grunt-standard": "^2.0.0"
+    "grunt-standard": "^2.0.0",
+    "mjpeg-consumer": "^1.0.5",
+    "request": "^2.67.0"
   },
   "repository": {
     "type": "git",
