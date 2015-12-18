@@ -19,7 +19,10 @@ or
 * streams audio samples and video images to database for replay & reconstruction
 
 
-# notes 
+
+`raw PCM data` > `decodeAudioData` > `scriptProcessorNode`
+
+# notes
 * http://ip/audio.cgi - 8000hz 16bit LE mono PCM
 * http://ip/video.cgi - 640x480 MJPG
 

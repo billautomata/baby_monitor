@@ -24,8 +24,26 @@ var jpg_parser = new Stream.Writable({
   }
 })
 
-request(['http://',USERNAME,':',PASSWORD,'@',HOST,'/video/mjpg.cgi'].join(''))
-  .pipe(consumer).pipe(jpg_parser)
+// request(['http://',USERNAME,':',PASSWORD,'@',HOST,'/video/mjpg.cgi'].join(''))
+//   .pipe(consumer).pipe(jpg_parser)
+
+var bytes = new Buffer(1)
+
+var audio_parser = new Stream.Writable({
+  write: function(chunk, encoding, next){
+    if(bytes.length < 1024*20){
+      bytes = Buffer.concat([chunk,bytes])
+      console.log(bytes.length)
+    }
+
+    // console.log('chunk', chunk.length)
+    // console.log(chunk.toString('hex').substring(0,100))
+    next()
+  }
+})
+
+request(['http://',USERNAME,':',PASSWORD,'@',HOST,'/audio.cgi'].join(''))
+  .pipe(audio_parser)
 
 var port = 8000;
 
@@ -60,5 +78,11 @@ if(process.env.HTTPS && process.env.HTTPS === '1'){
 //     res.writeHead(200);
 //     res.end("hello world\n");
 // });
+
+app.get('/audio.wav', function(req,res){
+  res.writeHead(200)
+  // res.send(bytes)
+  res.end(bytes)
+})
 
 app.use(express.static(__dirname + '/public'))
