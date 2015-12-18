@@ -6,6 +6,27 @@ var fs = require('fs'),
     https = require('https'),
     express = require('express');
 
+var request = require('request')
+var mjpegconsumer = require('mjpeg-consumer')
+var Stream = require('stream')
+
+var consumer = new mjpegconsumer()
+
+var USERNAME = process.env.WEBCAM_USERNAME
+var PASSWORD = process.env.WEBCAM_PASSWORD
+var HOST = process.env.WEBCAM_HOST
+
+var jpg_parser = new Stream.Writable({
+  write: function(chunk, encoding, next){
+    console.log('chunk', chunk.length)
+    console.log(chunk.toString('hex').substring(0,100))
+    next()
+  }
+})
+
+request(['http://',USERNAME,':',PASSWORD,'@',HOST,'/video/mjpg.cgi'].join(''))
+  .pipe(consumer).pipe(jpg_parser)
+
 var port = 8000;
 
 var options = {

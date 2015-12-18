@@ -1,5 +1,7 @@
 # baby monitor
 
+`ip camera` > `node.js server` > `browser`
+
 `npm install`
 
 `npm run create_keys`
@@ -11,22 +13,19 @@ or
 `npm run http`
 
 
-
-# how does it work?
-
-* browser application
-  * tracks motion from IP camera source
-  * tracks audio levels
-
-
 # todo
 
-* [ ] streams audio samples and video images to database for replay & reconstruction
+* pass raw audio samples to browser and use `decodeAudioData` to perform the resampling [link](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/decodeAudioData)
+* streams audio samples and video images to database for replay & reconstruction
 
-http://ip/audio.cgi - 8000hz 16bit LE mono PCM
-http://ip/video.cgi - 640x480 MJPG
+
+# notes 
+* http://ip/audio.cgi - 8000hz 16bit LE mono PCM
+* http://ip/video.cgi - 640x480 MJPG
+
 
 ```javascript
+// how to output jpegs
 var r = require('request')
 var m = require('mjpeg-consumer')
 var c = new m()
