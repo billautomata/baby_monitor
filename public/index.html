@@ -25,23 +25,23 @@
 
   <div class='col-xs-12'>hi</div>
 
-    <h1>decodeAudioData example</h1>
+  <h1>decodeAudioData example</h1>
 
-    <button class="play">Play</button>
-    <button class="stop">Stop</button>
+  <button class="play">Play</button>
+  <button class="stop">Stop</button>
 
-    <h2>Set playback rate</h2>
-    <input class="playback-rate-control" type="range" min="0.25" max="3" step="0.05" value="1">
-    <span class="playback-rate-value">1.0</span>
+  <h2>Set playback rate</h2>
+  <input class="playback-rate-control" type="range" min="0.25" max="3" step="0.05" value="1">
+  <span class="playback-rate-value">1.0</span>
 
-    <h2>Set loop start and loop end</h2>
-    <input class="loopstart-control" type="range" min="0" max="20" step="1" value="0">
-    <span class="loopstart-value">0</span>
+  <h2>Set loop start and loop end</h2>
+  <input class="loopstart-control" type="range" min="0" max="20" step="1" value="0">
+  <span class="loopstart-value">0</span>
 
-    <input class="loopend-control" type="range" min="0" max="20" step="1" value="0">
-    <span class="loopend-value">0</span>
+  <input class="loopend-control" type="range" min="0" max="20" step="1" value="0">
+  <span class="loopend-value">0</span>
 
-    <pre></pre>
+  <pre></pre>
 
   <script src="js/vendor/jquery-1.11.2.js"></script>
   <script src="js/vendor/bootstrap.min.js"></script>
@@ -51,68 +51,72 @@
   <script src='https://localhost:35729/livereload.js'></script>
 </body>
 
-  <script>
-// define variables
+<script>
+  // define variables
 
-var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-var source;
+  var audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+  var source;
 
-var pre = document.querySelector('pre');
-var myScript = document.querySelector('script');
-var play = document.querySelector('.play');
-var stop = document.querySelector('.stop');
+  var pre = document.querySelector('pre');
+  var myScript = document.querySelector('script');
+  var play = document.querySelector('.play');
+  var stop = document.querySelector('.stop');
 
-// use XHR to load an audio track, and
-// decodeAudioData to decode it and stick it in a buffer.
-// Then we put the buffer into the source
+  // use XHR to load an audio track, and
+  // decodeAudioData to decode it and stick it in a buffer.
+  // Then we put the buffer into the source
 
-function getData() {
-  source = audioCtx.createBufferSource();
-  var request = new XMLHttpRequest();
+  function getData() {
+    source = audioCtx.createBufferSource();
+    var request = new XMLHttpRequest();
 
-  request.open('GET', 'audio.wav', true);
+    request.open('GET', 'audio.wav', true);
 
-  request.responseType = 'arraybuffer';
+    request.responseType = 'arraybuffer';
 
 
-  request.onload = function() {
-    var audioData = request.response;
+    request.onload = function() {
+      var audioData = request.response;
 
-    audioCtx.decodeAudioData(audioData, function(buffer) {
-        console.log('success!')
-        source.buffer = buffer;
+      console.log(request.response)
 
-        source.connect(audioCtx.destination);
-        source.loop = true;
-      },
+      audioCtx.decodeAudioData(audioData, function(buffer) {
+          console.log('success!')
+          source.buffer = buffer;
 
-      function(e){"Error with decoding audio data" + e});
+          source.connect(audioCtx.destination);
+          source.loop = true;
+        },
 
+        function(e) {
+          console.log("Error with decoding audio data" + e)
+        });
+
+    }
+
+    request.send();
   }
 
-  request.send();
-}
+  // wire up buttons to stop and play audio
 
-// wire up buttons to stop and play audio
+  // getData
 
-// getData
+  play.onclick = function() {
+    getData();
+    source.start(0);
+    play.setAttribute('disabled', 'disabled');
+  }
 
-play.onclick = function() {
-  getData();
-  source.start(0);
-  play.setAttribute('disabled', 'disabled');
-}
-
-stop.onclick = function() {
-  source.stop(0);
-  play.removeAttribute('disabled');
-}
+  stop.onclick = function() {
+    source.stop(0);
+    play.removeAttribute('disabled');
+  }
 
 
-// dump script to pre element
+  // dump script to pre element
 
-// pre.innerHTML = myScript.innerHTML;
-  </script>
+  // pre.innerHTML = myScript.innerHTML;
+</script>
 
 
 </html>
