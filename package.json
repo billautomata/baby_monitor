@@ -20,7 +20,9 @@
     "grunt-run": "^0.3.0",
     "grunt-standard": "^2.0.0",
     "mjpeg-consumer": "^1.0.5",
-    "request": "^2.67.0"
+    "pcm": "^1.0.3",
+    "request": "^2.67.0",
+    "respawn": "^2.0.0"
   },
   "repository": {
     "type": "git",

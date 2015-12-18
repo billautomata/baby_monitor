@@ -18,8 +18,6 @@ or
 * pass raw audio samples to browser and use `decodeAudioData` to perform the resampling [link](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/decodeAudioData)
 * streams audio samples and video images to database for replay & reconstruction
 
-
-
 `raw PCM data` > `decodeAudioData` > `scriptProcessorNode`
 
 # notes
@@ -34,3 +32,5 @@ var m = require('mjpeg-consumer')
 var c = new m()
 r('http://ip/video.cgi').pipe(c).pipe(new require('stream').Writable({write: function(chunk,encoding,next){ console.log(chunk.length, encoding); next(); }}))
 ```
+
+* curl http://user:pass@ip/audio.cgi?type=PCM | play -t wav -r 8000 -b 16 -L -
